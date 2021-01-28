@@ -1,0 +1,120 @@
+<DOCTYPE html>
+    <html>
+    <head>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.js"></script>
+    </head>
+    <body>
+    
+        <h1>b)</h1>
+        <select id="headline" name="headline" onchange="selectHeadline()"></select>
+        <br> <br>
+
+        <h1>c)</h1>
+        <label for="id">Id:</label>
+        <input readonly id="id" value="">
+
+        <label for="title">Title:</label>
+        <input id="title" value="">
+
+        <br>
+        <button id="update">Update</button>
+        <br>
+        <h1>d)</h1>
+        <label for="Uid">UserId:</label>
+        <input id="Uid" value="">
+        
+        <label for="title0">Title:</label>
+        <input id="title0" value="">
+
+        <label for="body">Body:</label>
+        <input id="body" value="">
+        <br>
+        <button id="create">Create</button>
+        <br> 
+        <h1>e)</h1>
+        <p>Poistaa b:ssä valitun</p>
+        <button id="delete">Delete</button>
+
+        
+
+    </body>
+    <script>
+    $(document).ready(function() {
+        axios.get('https://jsonplaceholder.typicode.com/posts')
+            .then(function(response) {
+                $("#headline").append("<option value='-1'> Select headline</option>")
+                response.data.forEach(element => { 
+                    $("#headline").append("<option value='" + element.id + "'>" + element.title + "</option>");
+                });
+            });
+            $("#update").click(function(){
+                console.log("UPDATE PRESSED")
+                let id1=$("#id").val()
+                let title1=$("#title").val()
+                if(id1 == "" || title1 == "") {
+                    alert("Cannot update")
+                }
+                else {
+                axios.put('https://jsonplaceholder.typicode.com/posts/' + id1,
+                {id: id1, title: title1}).then(function(response) { 
+                    console.log("MUUTOS:  " + response.data.title)
+                    if(response.status == 200) {
+                        alert("Data updated!!!")
+                    }
+                    else {
+                        alert(response.status + " Something went wrong :^(")
+                    }
+                });
+                };
+            });
+        
+            $("#create").click(function(){
+                console.log("CREATE PRESSED")
+                let Uid1=$("#Uid").val()
+                let title1=$("#title0").val()
+                let body1=$("#body").val()
+                //console.log(Uid1)
+                axios.post('https://jsonplaceholder.typicode.com/posts/',{
+                    userId: Uid1, id: 0, title: title1, body: body1
+                }).then(function(response){
+                    console.log(response.data)
+                    if(response.status == 201) {              //201 = UUSI DATA ON LUOTU
+                        alert("Data created!!!")
+                    }
+                    else {
+                        alert(response.status + " Something went wrong :^(")
+                    }
+                })
+        })
+
+        $("#delete").click( ()=> {
+            let del = $("#headline").val()
+            console.log(del)
+            axios.delete('https://jsonplaceholder.typicode.com/posts/' + del)
+            .then( response => {
+                if(response.status == 200) {
+                    alert("Data deleted!!!")
+                    console.log(response.data)
+                }
+                else {
+                    alert(response.status + " Something went wrong :^(")
+                    console.log(response.data)
+                }
+            })
+        })
+    });
+
+
+    function selectHeadline() {
+        var select = $("#headline").val();
+        console.log("select =" + select)
+        axios.get('https://jsonplaceholder.typicode.com/posts/' + select)
+            .then(function(response) {
+                console.log(response.data)
+                $("#id").val(response.data.id)
+                $("#title").val(response.data.title)
+            })
+    }
+    </script>
+    </html>

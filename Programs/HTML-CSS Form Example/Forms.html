@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang=fi-FI>
+<head>
+    <title>FormsWebsite</title>
+    <link rel="Stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <meta charset="utf-8">
+</head>
+<body>
+<section>
+<div class="form">
+    <form>
+    <table>
+        <tr>
+            <td><label for="Enimi">Etunimi:</label></td>
+            <td><input type="text" id="Enimi" name="Enimi"></td>
+            
+        </tr>
+        <tr>
+            <td><label for="Snimi">Sukunimi:</label></td>
+            <td><input type="text" id="Snimi" name="Snimi"></td>
+        </tr>
+        <tr>
+            <td><label for="Sposti">Sposti:</label></td>
+            <td><input type="text" id="Sposti" name="Sposti"></td>
+        </tr>
+        <tr>
+            <td><label for="Kohjelma">Koulutusohjelma</labe></td>
+            <td>
+                <select id="Kohjelma" name="Kohjelma">
+                    <option value="TT">Tietotekniikka</option>
+                    <option value="MT">Maanmittaustekniikka</option>
+                    <option value="RT">Rakennustekniikka</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="Synt">Syntymäpäivä</label></td>
+            <td><input type="date" id="Synt" name="Synt"></td>
+        </tr>
+    </table>
+    <br> <br> <br> <br>
+    <h1>Osallistun seuraaville opintojaksoille</h1>
+        <input type="checkbox" id="j1" name="j1" value="j1">
+    <label for="j1">Ohjelmoinnin perusteet</label> <br>
+        <input type="checkbox" id="j2" name="j2" value="j2">
+    <label for="j2">Web-kehitys</label> <br>
+        <input type="checkbox" id="j3" name="j3" value="j3">
+    <label for="j3">Projekti</label>
+    <br> <br> 
+    <h1>Muuta tärkeää tietoa</h1>
+    <textarea></textarea>
+    <br>
+    <input type="submit" value="Submit">
+    <input type="reset" value="Reset">
+    <br> <br>
+    </form>
+</div>
+</section>
+</body>
+</html>

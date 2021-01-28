@@ -1,0 +1,85 @@
+<DOCTYPE html>
+<html lang=fi-FI>
+<head>
+<title>Postihintalaskuri</title>
+<meta charset="utf-8">
+</head>
+<body>
+    <h1>Hintalaskuri</h1>
+
+    <form>
+        <label for="paino">Postituksen paino (g):</label>
+        <input type="number" id="paino" value="0">
+    </form>
+
+    <button onclick="Kirje()">Kirje</button>
+    <button onclick="Paketti()">Paketti</button>
+    <br>
+    
+    <h3> Mahtuuko kirje postilaatikkoon </h3>
+    <select id="Valinta">
+        <option value="K">Kyllä</option>
+        <option value="E">Ei</option>
+    </select>
+
+    <p>Kuljetus maksaa:</p>
+    <p id="Hinta"></p>
+
+    <script>
+ 
+        function Kirje() {
+            var p = parseInt(document.getElementById("paino").value);
+            p1 = p / 100;
+            p2 = Math.floor(p1) * 100;      
+            if(p2 < 200) {
+                document.getElementById("Hinta").innerHTML = "0.50€"
+            }
+            else if(p >= 200 && p <= 500) {
+                var m = p2 * 0.04 / 100;
+                var m2 = 0.50 + m;
+                var m3 = m2.toFixed(2);
+                document.getElementById("Hinta").innerHTML = m3 + "€";
+            }
+            else if(p > 500) {
+                var m = p2 * 0.07 / 100;
+                var m2 = 0.50 + m;
+                
+                if(document.getElementById("Valinta").value == "K"){
+                    var m3 = m2.toFixed(2);
+                    document.getElementById("Hinta").innerHTML = m3 + "€";
+                }
+                else if(document.getElementById("Valinta").value == "E"){
+                    m2 = m2 + 2;
+                    var m3 = m2.toFixed(2);
+                    document.getElementById("Hinta").innerHTML = m3 + "€";
+                }
+                
+            }        
+        };
+
+        function Paketti() {
+            var p = parseInt(document.getElementById("paino").value);
+            p1 = p / 100;
+            p2 = Math.floor(p1) * 100;      
+            if(p2 < 200) {
+                document.getElementById("Hinta").innerHTML = "2.00€"
+            }
+            else if(p >= 200 && p <= 500) {
+                var m = p2 * 0.08 / 100;
+                var m2 = 2.0 + m;
+                var m3 = m2.toFixed(2);
+                document.getElementById("Hinta").innerHTML = m3 + "€";
+            }
+            else if(p > 500) {
+                var m = p2 * 0.14 / 100;
+                var m2 = 2.0 + m;
+                var m3 = m2.toFixed(2);
+                document.getElementById("Hinta").innerHTML = m3 + "€";
+            }        
+        };
+
+
+
+    </script>
+</body>
+</html>

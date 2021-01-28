@@ -1,0 +1,124 @@
+<DOCTYPE html>
+<html>
+    <head>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.js"></script>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        tr, th, td {
+            background-color: grey;
+            border: 1px solid black;
+            padding: 10px;
+        }
+    </style>
+    </head>
+    <body>
+
+        <h1>Sää</h1>
+        <select id="location" name="location">
+        <option value="000">Select</option>
+        <option value="Rovaniemi">Rovaniemi</option>
+        <option value="Kuopio">Kuopio</option>
+        <option value="London">Lontoo</option>
+        <option value="Stockholm">Tukholma</option>
+        <option value="Madrid">Madrid</option>
+        </select>
+
+        <button id="show" onclick="showData()">Show</button> 
+
+        <label for="temp">Lämpötila</label>
+            <input type="checkbox" id="läm" checked>
+        <label for="kosteus">Kosteus</label>
+            <input type="checkbox" id="kos" checked>
+        <label for="tuuli">Tuuli</label>
+            <input type="checkbox" id="tuu" checked>
+        <label for="pilvi">Pilvisyys</label>
+            <input type="checkbox" id="pil" checked>
+
+        <table id="Lä"></table>
+        <table id="Ko"></table>
+        <table id="Tu"></table>
+        <table id="Pi"></table>
+    </body>
+
+    <script>
+
+    function showData() {
+        var select = $("#location").val();
+        console.log("select =" + select)
+        axios.get('https://api.openweathermap.org/data/2.5/weather?q=' + select + '&APPID=22dcac3af425012541e44eaf49c519a2&lang=Fi&units=metric')
+            .then(response=> {
+                console.log(response.data)
+                dataLä(response);
+                dataKo(response);
+                dataTu(response);
+                dataPi(response);
+            })
+    }
+    
+    function dataLä(response) {
+        $("#Lä").replaceWith(     
+            "<table id='Lä'> <tr><th>" + "Lämpötila" + "</th><tr>" +
+            "<tr><td>" + response.data.main.temp + " °C" + "</td></tr> </table>")
+    }
+    function dataKo(response) {
+        $("#Ko").replaceWith(     
+            "<table id='Ko'> <tr><th>" + "Kosteus" + "</th><tr>" +
+            "<tr><td>" + response.data.main.humidity + " %" + "</td></tr> </table>")
+    }
+    function dataTu(response) {
+        $("#Tu").replaceWith(     
+            "<table id='Tu'>  <tr><th>" + "Tuuli" + "</th><tr>" +
+            "<tr><td>" + response.data.wind.speed + " m/s" + "</td></tr> </table>")
+    }
+    function dataPi(response) {
+        $("#Pi").replaceWith(     
+            "<table id='Pi'> <tr><th>" + "Pilvisyys" + "</th><tr>" +
+            "<tr><td>" + response.data.clouds.all + " %" + "</td></tr> </table>") 
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('#läm').addEventListener('change', checkLäm);
+    document.querySelector('#kos').addEventListener('change', checkKos);
+    document.querySelector('#tuu').addEventListener('change', checkTuu);
+    document.querySelector('#pil').addEventListener('change', checkPil);
+    })
+
+  function checkLäm(){
+    if(this.checked) {
+    console.log("checked")
+        $("#lä").show();
+    }
+    else{
+        $("#lä").hide();    
+    }}
+
+  function checkKos(){
+    if(this.checked) {
+    console.log("checked")
+        $("#Ko").show();
+    }
+    else{
+        $("#Ko").hide();    
+    }}
+
+  function checkTuu(){
+    if(this.checked) {
+    console.log("checked")
+        $("#Tu").show();
+    }
+    else{
+        $("#Tu").hide();    
+    }}
+  function checkPil(){
+    if(this.checked) {
+    console.log("checked")
+        $("#Pi").show();
+    }
+    else{
+        $("#Pi").hide();    
+    }}
+    </script>
+</html> 
