@@ -48,7 +48,7 @@
     function showData() {
         var select = $("#location").val();
         console.log("select =" + select)
-        axios.get('https://api.openweathermap.org/data/2.5/weather?q=' + select + '&APPID=22dcac3af425012541e44eaf49c519a2&lang=Fi&units=metric')
+        axios.get('https://api.openweathermap.org/data/2.5/weather?q=' + select + '&APPID= "ADD YOUR PERSONAL ID FROM openweathermap" &lang=Fi&units=metric')
             .then(response=> {
                 console.log(response.data)
                 dataLä(response);
